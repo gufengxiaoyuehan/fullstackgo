@@ -44,7 +44,7 @@ func (p *Post) Validate() error {
 }
 
 func (p *Post) SavePost(db *gorm.DB) (*Post, error) {
-    var err Error
+    var err error
     err = db.Debug().Model(&Post{}).Create(&p).Error
     if err != nil {
         return &Post{}, err
@@ -68,7 +68,7 @@ func (p *Post) FindAllPosts(db *gorm.DB)(*[]Post, error) {
     } 
     if len(posts) > 0 {
         for i, _ := range posts {
-            err := db.Debug.Model(&User{}).Where("id=?", posts[i].AuthorID).Take(&posts[i].Author).Error
+            err := db.Debug().Model(&User{}).Where("id=?", posts[i].AuthorID).Take(&posts[i].Author).Error
             if err != nil {
                 return &[]Post{}, err
             }
@@ -93,11 +93,9 @@ func (p *Post) FindPostByID(db *gorm.DB, pid uint64)(*Post, error) {
     return p, nil
 }
 
-func (p *Post) UpdatePost(db *gorm.DB) (*Post, error){
+func (p *Post) UpdateAPost(db *gorm.DB) (*Post, error){
     var err error
-    err = db.Debug().Model(&Post{}).Where("id=?", p.ID).Update(
-        Post{Title: p.Title, Content: p.Content, UpdatedAt: time.Now()}
-    ).Error
+    err = db.Debug().Model(&Post{}).Where("id=?", p.ID).Update( Post{Title: p.Title, Content: p.Content, UpdatedAt: time.Now()}).Error
     if err != nil {
         return &Post{}, err
     }

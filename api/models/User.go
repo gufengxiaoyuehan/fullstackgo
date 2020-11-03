@@ -7,7 +7,7 @@ import (
     "strings"
     "time"
 
-    "github.com/badox/checkmail"
+    "github.com/badoux/checkmail"
     "github.com/jinzhu/gorm"
     "golang.org/x/crypto/bcrypt"
 )
@@ -94,12 +94,23 @@ func (u *User) Validate(action string) error {
 }
 
 func (u *User) SaveUser(db *gorm.DB) (*User, error) {
-    var err Error
+    var err error
     err = db.Debug().Create(&u).Error
     if err != nil {
         return &User{}, err
     }
     return u, nil
+}
+
+
+func (u *User) FindAllUsers(db *gorm.DB) (*[]User, error) {
+	var err error
+	users := []User{}
+	err = db.Debug().Model(&User{}).Limit(100).Find(&users).Error
+	if err != nil {
+		return &[]User{}, err
+	}
+	return &users, err
 }
 
 func (u *User) FindUserByID(db *gorm.DB, uid uint32) (*User, error) {
@@ -120,7 +131,7 @@ func (u *User) UpdateAUser(db *gorm.DB, uid uint32) (*User, error) {
     if err != nil {
         log.Fatal(err)
     }
-    db = db.Debug().Model(&User{}).Where("id=?", uid).Take(User{}).updateColumns(
+    db = db.Debug().Model(&User{}).Where("id=?", uid).Take(User{}).UpdateColumns(
         map[string]interface{}{
             "password":    u.Password,
             "nickname":    u.Nickname,
@@ -133,7 +144,7 @@ func (u *User) UpdateAUser(db *gorm.DB, uid uint32) (*User, error) {
         return &User{}, db.Error
     }
 
-    err = db.Debug.Model(&User{}).Where("id=?", uid).Take(&u).Error
+    err = db.Debug().Model(&User{}).Where("id=?", uid).Take(&u).Error
     if err != nil {
         return &User{}, err
     }

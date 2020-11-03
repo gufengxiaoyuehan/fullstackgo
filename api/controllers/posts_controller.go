@@ -12,7 +12,7 @@ import (
 	"github.com/gufengxiaoyuehan/fullstackgo/api/auth"
 	"github.com/gufengxiaoyuehan/fullstackgo/api/models"
 	"github.com/gufengxiaoyuehan/fullstackgo/api/responses"
-	"github.com/gufengxiaoyuehan/fullstackgo/api/formaterror"
+	"github.com/gufengxiaoyuehan/fullstackgo/api/utils/formaterror"
 )
 
 

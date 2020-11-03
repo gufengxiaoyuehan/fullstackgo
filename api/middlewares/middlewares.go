@@ -8,7 +8,7 @@ import (
 	"github.com/gufengxiaoyuehan/fullstackgo/api/responses"
 )
 
-func SetMiddlewareJson(next http.HandlerFunc) http.HandlerFunc {
+func SetMiddlewareJSON(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request){
 		w.Header().Set("Content-Type", "application/json")
 		next(w, r)

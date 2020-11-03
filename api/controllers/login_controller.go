@@ -8,7 +8,7 @@ import (
 	"github.com/gufengxiaoyuehan/fullstackgo/api/auth"
 	"github.com/gufengxiaoyuehan/fullstackgo/api/models"
 	"github.com/gufengxiaoyuehan/fullstackgo/api/responses"
-	"github.com/gufengxiaoyuehan/fullstackgo/utils/formaterror"
+	"github.com/gufengxiaoyuehan/fullstackgo/api/utils/formaterror"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -23,7 +23,7 @@ func (server *Server) Login(w http.ResponseWriter, r *http.Request){
 	user := models.User{}
 	err = json.Unmarshal(body, &user)
 	if err != nil {
-		responses.ERROR(w, http.StatusUnprocessesableEntity, err)
+		responses.ERROR(w, http.StatusUnprocessableEntity, err)
 		return
 	}
 

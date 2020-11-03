@@ -9,13 +9,13 @@ import (
 
 var users = []models.User {
 	models.User {
-		NickName: "Steven victor",
+		Nickname: "Steven victor",
 		Email: "steven@gmail.com",
 		Password: "password",
 	},
 	models.User {
-		NickName: "Login Luo",
-		Email: "chong.luo@exmaple.com"
+		Nickname : "Login Luo",
+		Email: "chong.luo@exmaple.com",
 		Password: "password",
 	},
 }

@@ -20,10 +20,11 @@ func ERROR(w http.ResponseWriter, statusCode int, err error) {
         JSON(
             w,
             statusCode,
-            struct {Error string `json:"error"`}{Error err.Error()}
-        )
+            struct { Error string `json:"error"`}{
+                Error: err.Error(),
+            })
         return
     }
-    JSON(w, httpStatusBadRequest, nil)
+    JSON(w, http.StatusBadRequest, nil)
 }
 
